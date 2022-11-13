@@ -24,6 +24,10 @@ spec:
   logLevel: debug
   logFormat: logfmt
   scrapeInterval: 30s
+  securityContext:
+    fsGroup: 0
+    runAsNonRoot: false
+    runAsUser: 0
   storage:
     volumeClaimTemplate:
       spec:
