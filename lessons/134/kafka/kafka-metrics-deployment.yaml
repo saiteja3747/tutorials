@@ -1,0 +1,74 @@
+---
+# Source: kafka/templates/kafka-metrics-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-ing-kafka-exporter
+  namespace: "kafka"
+  labels:
+    app.kubernetes.io/name: kafka
+    helm.sh/chart: kafka-19.1.3
+    app.kubernetes.io/instance: my-ing
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: cluster-metrics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kafka
+      app.kubernetes.io/instance: my-ing
+      app.kubernetes.io/component: cluster-metrics
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kafka
+        helm.sh/chart: kafka-19.1.3
+        app.kubernetes.io/instance: my-ing
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/component: cluster-metrics
+      annotations:
+    spec:
+      
+      affinity:
+        podAffinity:
+          
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: kafka
+                    app.kubernetes.io/instance: my-ing
+                    app.kubernetes.io/component: metrics
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+        nodeAffinity:
+          
+      securityContext:
+        fsGroup: 1001
+      serviceAccountName: my-ing-kafka-exporter
+      containers:
+        - name: kafka-exporter
+          image: docker.io/bitnami/kafka-exporter:1.6.0-debian-11-r25
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1001
+          command:
+            - bash
+          args:
+            - -ce
+            - |
+              kafka_exporter \
+              --kafka.server=my-ing-kafka-0.my-ing-kafka-headless.kafka.svc.cluster.local:9092 \
+              --kafka.server=my-ing-kafka-1.my-ing-kafka-headless.kafka.svc.cluster.local:9092 \
+              --kafka.server=my-ing-kafka-2.my-ing-kafka-headless.kafka.svc.cluster.local:9092 \
+              --web.listen-address=:9308
+          ports:
+            - name: metrics
+              containerPort: 9308
+          resources: 
+            limits: {}
+            requests: {}
+          volumeMounts:
+      volumes:
