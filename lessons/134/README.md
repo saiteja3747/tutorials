@@ -24,4 +24,5 @@ XX:MaxRAMPercentage=75.0
 Installation
 kubectl create -f prometheus-operator-crd
 kubectl apply -R -f prometheus
+kubectl get pods -n monitoring
 kubectl -n monitoring port-forward svc/prometheus-operated 9090

@@ -2,10 +2,10 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  labels:
-    component: prometheus
   name: prometheus-operator
   namespace: monitoring
+  labels:
+    component: main
 spec:
   endpoints:
   - honorLabels: true
