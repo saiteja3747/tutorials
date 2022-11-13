@@ -93,3 +93,6 @@ spec:
       - name: kube-state-metrics
         configMap:
           name: kube-state-metrics
+      - name: storage
+        persistentVolumeClaim:
+          claimName: grafana

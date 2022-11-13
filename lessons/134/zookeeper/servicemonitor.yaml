@@ -5,7 +5,7 @@ metadata:
   name: zookeeper
   namespace: zookeeper
   labels:
-    app: zookeeper
+    component: main
 spec:
   selector:
     matchLabels:

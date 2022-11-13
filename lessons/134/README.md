@@ -26,3 +26,8 @@ kubectl create -f prometheus-operator-crd
 kubectl apply -R -f prometheus
 kubectl get pods -n monitoring
 kubectl -n monitoring port-forward svc/prometheus-operated 9090
+
+Zookeeper
+kubectl apply -f zookeeper/namespace.yaml
+kubectl apply -f zookeeper
+kubectl get pods -n zookeeper
