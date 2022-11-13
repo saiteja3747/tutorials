@@ -22,7 +22,6 @@ spec:
         app: zookeeper
     spec:
       affinity:
-        podAffinity: 
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
             - podAffinityTerm:
@@ -31,13 +30,12 @@ spec:
                     app: zookeeper
                 topologyKey: kubernetes.io/hostname
               weight: 1
-        nodeAffinity:
       securityContext:
         fsGroup: 1001
       initContainers:
       containers:
       - name: zookeeper
-        image: docker.io/bitnami/zookeeper:3.8.0-debian-11-r47
+        image: docker.io/bitnami/zookeeper:3.8.0
         securityContext:
           allowPrivilegeEscalation: false
           runAsNonRoot: true
@@ -90,6 +88,10 @@ spec:
           value: "ERROR"
         - name: ALLOW_ANONYMOUS_LOGIN
           value: "yes"
+        - name: ZOO_ENABLE_PROMETHEUS_METRICS
+          value: "yes"
+        - name: ZOO_PROMETHEUS_METRICS_PORT_NUMBER
+          value: "9141"
         - name: POD_NAME
           valueFrom:
             fieldRef:
@@ -102,6 +104,8 @@ spec:
           containerPort: 2888
         - name: election
           containerPort: 3888
+        - name: metrics
+          containerPort: 9141
         livenessProbe:
           failureThreshold: 6
           initialDelaySeconds: 30
