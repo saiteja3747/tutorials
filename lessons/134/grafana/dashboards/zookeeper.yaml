@@ -3,9 +3,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: monitoring
-  name: cadvisor
+  name: zookeeper
 data:
-  cadvisor.json: |-
+  zookeeper.json: |-
     {
       "annotations": {
         "list": [
