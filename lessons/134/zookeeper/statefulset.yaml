@@ -15,7 +15,6 @@ spec:
   serviceName: zookeeper-headless
   template:
     metadata:
-      annotations:
       labels:
         app: zookeeper
     spec:
@@ -30,7 +29,6 @@ spec:
               weight: 1
       securityContext:
         fsGroup: 1001
-      initContainers:
       containers:
       - name: zookeeper
         image: docker.io/bitnami/zookeeper:3.8.0
@@ -41,10 +39,12 @@ spec:
         command:
         - /scripts/setup.sh
         resources:
-          limits: {}
+          limits:
+            cpu: 2000m
+            memory: 2Gi
           requests:
             cpu: 250m
-            memory: 256Mi
+            memory: 1Gi
         env:
         - name: BITNAMI_DEBUG
           value: "false"
@@ -134,10 +134,9 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: data
-      annotations:
     spec:
       accessModes:
       - ReadWriteOnce
       resources:
         requests:
-          storage: 8Gi
+          storage: 10Gi
