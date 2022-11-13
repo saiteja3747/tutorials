@@ -19,3 +19,8 @@ Notes:
 https://www.atamanroman.dev/development/2019/09/11/usecontainersupport-to-the-rescue.html
 setting -Xmx and -Xms disables the automatic heap sizing.
 XX:MaxRAMPercentage=75.0
+
+
+Installation
+kubectl create -f prometheus-operator-crd
+kubectl apply -R -f prometheus
