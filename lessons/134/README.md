@@ -31,3 +31,8 @@ Zookeeper
 kubectl apply -f zookeeper/namespace.yaml
 kubectl apply -f zookeeper
 kubectl get pods -n zookeeper
+
+Grafana
+kubectl apply -R -f grafana
+kubectl get pods -n monitoring
+kubectl -n monitoring port-forward svc/grafana 3000

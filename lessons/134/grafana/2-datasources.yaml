@@ -8,7 +8,7 @@ data:
   datasources.yaml: |
     apiVersion: 1
     datasources:
-    - name: Prometheus
+    - name: Main
       type: prometheus
       url: http://prometheus-operated.monitoring:9090
       isDefault: false
