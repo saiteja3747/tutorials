@@ -13,8 +13,6 @@ spec:
     matchLabels:
       app: zookeeper
   serviceName: zookeeper-headless
-  updateStrategy:
-    type: RollingUpdate
   template:
     metadata:
       annotations:

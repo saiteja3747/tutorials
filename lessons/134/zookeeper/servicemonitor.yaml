@@ -15,4 +15,4 @@ spec:
     path: /metrics
   namespaceSelector:
     matchNames:
-      - zookeeper
+    - zookeeper
