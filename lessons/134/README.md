@@ -35,6 +35,9 @@ kubectl get pods -n zookeeper
 Cadviros
 kubectl apply -f cadvisor
 
+Kubelet
+kubectl apply -f kubelet
+
 Grafana
 kubectl create -f dashboards
 kubectl apply -f grafana
