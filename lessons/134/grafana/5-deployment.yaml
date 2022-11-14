@@ -35,6 +35,9 @@ spec:
         - name: dashboards
           mountPath: "/etc/grafana/provisioning/dashboards/dashboardproviders.yaml"
           subPath: dashboardproviders.yaml
+        - name: cadvisor
+          mountPath: "/var/lib/grafana/dashboards/kubernetes/cadvisor.json"
+          subPath: cadvisor.json
         - name: zookeeper
           mountPath: "/var/lib/grafana/dashboards/kubernetes/zookeeper.json"
           subPath: zookeeper.json
@@ -81,6 +84,9 @@ spec:
       - name: dashboards
         configMap:
           name: dashboards
+      - name: cadvisor
+        configMap:
+          name: cadvisor
       - name: zookeeper
         configMap:
           name: zookeeper
