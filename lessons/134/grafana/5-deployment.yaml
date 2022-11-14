@@ -24,6 +24,8 @@ spec:
         image: grafana/grafana:9.2.4
         imagePullPolicy: IfNotPresent
         volumeMounts:
+        - name: storage
+          mountPath: "/var/lib/grafana"
         - name: config
           mountPath: "/etc/grafana/grafana.ini"
           subPath: grafana.ini
