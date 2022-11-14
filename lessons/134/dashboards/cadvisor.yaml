@@ -53,7 +53,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P9FBFDB890C0B94E1"
+            "uid": "PEB814BE3CA3B78C0"
           },
           "fieldConfig": {
             "defaults": {
@@ -135,7 +135,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P9FBFDB890C0B94E1"
+                "uid": "PEB814BE3CA3B78C0"
               },
               "editorMode": "code",
               "expr": "sum(container_memory_working_set_bytes{container_label_io_kubernetes_container_name=\"$container\", container_label_io_kubernetes_pod_namespace=\"$namespace\"}) by (id, container_label_io_kubernetes_pod_name)",
@@ -147,7 +147,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P9FBFDB890C0B94E1"
+                "uid": "PEB814BE3CA3B78C0"
               },
               "editorMode": "code",
               "expr": "sum(container_spec_memory_limit_bytes{container_label_io_kubernetes_container_name=\"$container\", container_label_io_kubernetes_pod_namespace=\"$namespace\"}) by (container_label_io_kubernetes_pod_namespace,container_label_io_kubernetes_container_name) / count(container_memory_working_set_bytes{container_label_io_kubernetes_container_name=\"$container\", container_label_io_kubernetes_pod_namespace=\"$namespace\"}) by (container_label_io_kubernetes_container_name,container_label_io_kubernetes_pod_namespace)",
@@ -180,7 +180,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P9FBFDB890C0B94E1"
+            "uid": "PEB814BE3CA3B78C0"
           },
           "fieldConfig": {
             "defaults": {
@@ -262,7 +262,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P9FBFDB890C0B94E1"
+                "uid": "PEB814BE3CA3B78C0"
               },
               "editorMode": "code",
               "expr": "sum(irate(container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name=\"$container\", container_label_io_kubernetes_pod_namespace=\"$namespace\"}[60s])) by (id,container_label_io_kubernetes_pod_name)",
@@ -274,7 +274,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P9FBFDB890C0B94E1"
+                "uid": "PEB814BE3CA3B78C0"
               },
               "editorMode": "code",
               "expr": "sum(container_spec_cpu_quota{container_label_io_kubernetes_container_name=\"$container\", container_label_io_kubernetes_pod_namespace=\"$namespace\"} / container_spec_cpu_period{container_label_io_kubernetes_container_name=\"$container\", container_label_io_kubernetes_pod_namespace=\"$namespace\"}) by (container_label_io_kubernetes_pod_namespace,container_name) / count(container_memory_working_set_bytes{container_label_io_kubernetes_container_name=\"$container\", container_label_io_kubernetes_pod_namespace=\"$namespace\"}) by (container_label_io_kubernetes_pod_namespace,container_name) ",
@@ -286,7 +286,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P9FBFDB890C0B94E1"
+                "uid": "PEB814BE3CA3B78C0"
               },
               "expr": "sum(container_spec_cpu_shares{container_label_io_kubernetes_container_name=\"$container\", container_label_io_kubernetes_pod_namespace=\"$namespace\", prometheus=\"$cluster\"} / 1024) by (container_label_io_kubernetes_pod_namespace,container_label_io_kubernetes_container_name) / count(container_spec_cpu_shares{container_label_io_kubernetes_container_name=\"$container\", container_label_io_kubernetes_pod_namespace=\"$namespace\", prometheus=\"$cluster\"}) by (container_label_io_kubernetes_pod_namespace,container_label_io_kubernetes_container_name) ",
               "interval": "",
