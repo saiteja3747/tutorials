@@ -35,8 +35,8 @@ kubectl get pods -n zookeeper
 Cadviros
 kubectl apply -f cadvisor
 
-Kubelet
-kubectl apply -f kubelet
+EBS driver
+kubectl apply -f aws-ebs-csi-driver
 
 Grafana
 kubectl create -f dashboards
