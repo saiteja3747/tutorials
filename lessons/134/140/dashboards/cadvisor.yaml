@@ -304,7 +304,7 @@ data:
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "PEB814BE3CA3B78C0"
           },
           "fieldConfig": {
             "defaults": {
@@ -353,11 +353,14 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "1 / kubelet_volume_stats_capacity_bytes * kubelet_volume_stats_used_bytes{namespace=\"$namespace\", prometheus=\"$cluster\"}",
-              "format": "time_series",
-              "interval": "",
-              "intervalFactor": 1,
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PEB814BE3CA3B78C0"
+              },
+              "editorMode": "code",
+              "expr": "1 / kubelet_volume_stats_capacity_bytes * kubelet_volume_stats_used_bytes{namespace=\"$namespace\"}",
               "legendFormat": "{{persistentvolumeclaim}}",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -485,7 +488,7 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "cAdvisor",
+      "title": "Containers",
       "uid": "RFQDeVVMz",
       "version": 1,
       "weekStart": ""

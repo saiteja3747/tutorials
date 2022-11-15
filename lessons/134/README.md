@@ -21,6 +21,9 @@ setting -Xmx and -Xms disables the automatic heap sizing.
 XX:MaxRAMPercentage=75.0
 
 
+CSI Driver
+kubectl apply -f aws-ebs-csi-driver
+
 Installation
 kubectl create -f prometheus-operator-crd
 kubectl apply -R -f prometheus
@@ -35,11 +38,30 @@ kubectl get pods -n zookeeper
 Cadviros
 kubectl apply -f cadvisor
 
-EBS driver
-kubectl apply -f aws-ebs-csi-driver
-
 Grafana
 kubectl create -f dashboards
 kubectl apply -f grafana
 kubectl get pods -n monitoring
 kubectl -n monitoring port-forward svc/grafana 3000
+
+
+curl localhost:8001/api/v1/nodes/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Installation
+kubectl create -f prometheus-operator-crd
+kubectl apply -R -f prometheus
+kubectl get pods -n monitoring
+kubectl -n monitoring port-forward svc/prometheus-operated 9090
