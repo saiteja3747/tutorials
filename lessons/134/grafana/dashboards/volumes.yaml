@@ -5,7 +5,7 @@ metadata:
   namespace: grafana
   name: volumes-dashboard
 data:
-  volumes.json: |-
+  volumes.json: |
     {
       "annotations": {
         "list": [
