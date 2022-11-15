@@ -145,3 +145,95 @@ kube_persistentvolume_status_phase{phase="Released"} == 1
 
 
 create vpc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########################
+
+Provision Infra
+(go over terraform code from 0-provider -> 10-csi-driver)
+terraform init
+terraform apply
+aws eks update-kubeconfig --name demo --region us-east-1
+
+Deploy Prometheus (go over prometheus)
+kubectl create -f prometheus-operator-crd
+kubectl apply -R -f prometheus
+kubectl get pods -n monitoring
+kubectl -n monitoring port-forward svc/prometheus-operated 9090
+(show empty targets http://localhost:9090/targets)
+
+Install Kubelet (go over kubelet)
+kubectl apply -f kubelet
+(show target in prometheus)
+(type "volume" in perometheus explorer) (remove history)
+(execute "kubelet_volume_stats_capacity_bytes")
+(convert value to gb by deviding 1000000000)
+
+Deploy Grafana (go over files)
+kubectl apply -R -f grafana
+kubectl -n grafana port-forward svc/grafana 3000
+
+(create new dashboard)
+(add a new panel)
+Name: Persistent Volume Usage
+kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes
+kubectl exec -it prometheus-main-0 -n monitoring -- sh
+df -h
+dd if=/dev/zero of=/prometheus/test.file bs=1G count=10
+
+(create second pane)
+Persistent Volume Inodes Usage
+kubelet_volume_stats_inodes_used / kubelet_volume_stats_inodes
+run: "kubelet_volume_stats_capacity_bytes" in prometheus
+Create new "namespace" variable in grafana
+label_values(kubelet_volume_stats_capacity_bytes, namespace)
+
+Create new pane (Persistent Volume Usage per Namespace)
+
+kubelet_volume_stats_used_bytes{namespace=~"$namespace"} / kubelet_volume_stats_capacity_bytes{namespace=~"$namespace"}
+
+Deploy kube-state-metrics (go over files)
+kubectl apply -f kube-state-metrics
+check new target in prometheus
+
+create new pane
+Persistent Volume Claim Status by Phase
+
+{{phase}} - {{persistentvolumeclaim}}
+kube_persistentvolumeclaim_status_phase{phase="Pending"} == 1
+kube_persistentvolumeclaim_status_phase{phase="Lost"} == 1
+kube_persistentvolumeclaim_status_phase{phase="Bound"} == 1
+
+
+create last pane
+Persistent Volume Status by Phase
+
+{{phase}} - {{persistentvolume}}
+kube_persistentvolume_status_phase{phase="Bound"} == 1
+kube_persistentvolume_status_phase{phase="Failed"} == 1
+kube_persistentvolume_status_phase{phase="Pending"} == 1
+kube_persistentvolume_status_phase{phase="Available"} == 1
+kube_persistentvolume_status_phase{phase="Released"} == 1
+
+Create test PVC
+kubectl apply -f test-pvc.yaml
