@@ -69,12 +69,41 @@ kubectl apply -R -f prometheus
 kubectl get pods -n monitoring
 kubectl -n monitoring port-forward svc/prometheus-operated 9090
 kubectl apply -f kubelet
+
+kubelet_volume_stats_capacity_bytes
+
+
+
+
 go to prometheus ui and type "volume" -> execute "kubelet_volume_stats_capacity_bytes"
 value / 1000000000
 
-1 / kubelet_volume_stats_capacity_bytes * kubelet_volume_stats_used_bytes
+
 
 kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes
+
+{{ persistentvolumeclaim }}
+
+Persistent Volume Usage
+
+Decimals: 1
+
+Persistent Volume Inodes Usage
+
+kubelet_volume_stats_inodes_used / kubelet_volume_stats_inodes
+
+create variable:
+namespace
+
+
+label_values(metric, label)	Returns a list of label values for the label in the specified metric.
+
+label_values(kubelet_volume_stats_capacity_bytes, namespace)
+
+kubelet_volume_stats_used_bytes{namespace=~"$namespace"} / kubelet_volume_stats_capacity_bytes{namespace=~"$namespace"}
+
+Persistent Volume Usage per Namespace
+
 
 deploy grafana
 kubectl apply -R -f grafana
