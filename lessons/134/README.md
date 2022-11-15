@@ -104,7 +104,7 @@ kubelet_volume_stats_used_bytes{namespace=~"$namespace"} / kubelet_volume_stats_
 
 Persistent Volume Usage per Namespace
 
-
+kubectl apply -f kube-state-metrics
 deploy grafana
 kubectl apply -R -f grafana
 kubectl -n grafana port-forward svc/grafana 3000
@@ -118,3 +118,30 @@ df -h
 dd if=/dev/zero of=/prometheus/test.file bs=1G count=1
 
 generate file in prometheus container
+
+
+
+
+kube_persistentvolumeclaim_status_phase
+Pending\Bound\Lost
+
+Persistent Volume Claim Status by Phase
+
+kube_persistentvolumeclaim_status_phase{phase="Pending"} == 1
+kube_persistentvolumeclaim_status_phase{phase="Lost"} == 1
+kube_persistentvolumeclaim_status_phase{phase="Bound"} == 1
+
+kube_persistentvolume_status_phase
+Bound|Failed|Pending|Available|Released
+
+
+Persistent Volume Status by Phase
+
+kube_persistentvolume_status_phase{phase="Bound"} == 1
+kube_persistentvolume_status_phase{phase="Failed"} == 1
+kube_persistentvolume_status_phase{phase="Pending"} == 1
+kube_persistentvolume_status_phase{phase="Available"} == 1
+kube_persistentvolume_status_phase{phase="Released"} == 1
+
+
+create vpc
