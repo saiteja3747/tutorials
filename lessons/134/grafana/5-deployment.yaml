@@ -35,12 +35,9 @@ spec:
         - name: dashboards
           mountPath: "/etc/grafana/provisioning/dashboards/dashboardproviders.yaml"
           subPath: dashboardproviders.yaml
-        - name: cadvisor
-          mountPath: "/var/lib/grafana/dashboards/kubernetes/cadvisor.json"
-          subPath: cadvisor.json
-        - name: zookeeper
-          mountPath: "/var/lib/grafana/dashboards/kubernetes/zookeeper.json"
-          subPath: zookeeper.json
+        - name: volumes
+          mountPath: "/var/lib/grafana/dashboards/kubernetes/volumes.json"
+          subPath: volumes.json
         ports:
         - name: grafana
           containerPort: 3000
@@ -75,6 +72,9 @@ spec:
             cpu: 2000m
             memory: 4Gi
       volumes:
+      - name: storage
+        persistentVolumeClaim:
+          claimName: grafana
       - name: config
         configMap:
           name: grafana
@@ -84,12 +84,6 @@ spec:
       - name: dashboards
         configMap:
           name: dashboards
-      - name: cadvisor
+      - name: volumes
         configMap:
-          name: cadvisor
-      - name: zookeeper
-        configMap:
-          name: zookeeper
-      - name: storage
-        persistentVolumeClaim:
-          claimName: grafana
+          name: volumes
