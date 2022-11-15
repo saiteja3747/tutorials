@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: monitoring
+  namespace: grafana
   name: grafana
 spec:
   replicas: 1
@@ -35,9 +35,9 @@ spec:
         - name: dashboards
           mountPath: "/etc/grafana/provisioning/dashboards/dashboardproviders.yaml"
           subPath: dashboardproviders.yaml
-        - name: volumes
-          mountPath: "/var/lib/grafana/dashboards/kubernetes/volumes.json"
-          subPath: volumes.json
+        # - name: volumes
+        #   mountPath: "/var/lib/grafana/dashboards/kubernetes/volumes.json"
+        #   subPath: volumes.json
         ports:
         - name: grafana
           containerPort: 3000
@@ -84,6 +84,6 @@ spec:
       - name: dashboards
         configMap:
           name: dashboards
-      - name: volumes
-        configMap:
-          name: volumes
+      # - name: volumes
+      #   configMap:
+      #     name: volumes

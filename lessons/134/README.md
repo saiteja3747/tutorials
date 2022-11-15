@@ -55,13 +55,37 @@ curl localhost:8001/api/v1/nodes/
 
 
 
+ebs csi driver (volume metrics) - https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/docs/metrics.md#volume-stats-metrics
+kube-state-metrics (PersistentVolume Metrics) - https://github.com/kubernetes/kube-state-metrics/blob/master/docs/persistentvolume-metrics.md#persistentvolume-metrics
 
 
-
-
+aws eks update-kubeconfig \
+  --name demo \
+  --region us-east-1
 
 Installation
 kubectl create -f prometheus-operator-crd
 kubectl apply -R -f prometheus
 kubectl get pods -n monitoring
 kubectl -n monitoring port-forward svc/prometheus-operated 9090
+kubectl apply -f kubelet
+go to prometheus ui and type "volume" -> execute "kubelet_volume_stats_capacity_bytes"
+value / 1000000000
+
+1 / kubelet_volume_stats_capacity_bytes * kubelet_volume_stats_used_bytes
+
+kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes
+
+deploy grafana
+kubectl apply -R -f grafana
+kubectl -n grafana port-forward svc/grafana 3000
+create dashboard
+add a new raw (kubelet)
+persisten
+persent (0 - 1)
+
+k exec -it prometheus-main-0 -n monitoring -- sh
+df -h
+dd if=/dev/zero of=/prometheus/test.file bs=1G count=1
+
+generate file in prometheus container

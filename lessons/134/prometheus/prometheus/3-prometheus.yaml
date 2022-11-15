@@ -33,7 +33,7 @@ spec:
       spec:
         resources:
           requests:
-            storage: 25Gi
+            storage: 20Gi
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
