@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: grafana
-  name: volumes
+  name: volumes-dashboard
 data:
   volumes.json: |-
     {
