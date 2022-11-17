@@ -9,4 +9,4 @@ spec:
     name: nginx
   policy:
     semver:
-      range: 1.19.x
+      range: latest
